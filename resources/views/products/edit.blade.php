@@ -55,8 +55,8 @@
 		            <strong>Price:</strong>
 		            <input type="number" name="price" value="{{ $product->price }}" class="form-control" placeholder="Name">
 		        </div>
-		    </div>            
-            
+		    </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Image:</strong>
@@ -72,9 +72,5 @@
 		</div>
 
     </form>
-
-
-    <p class="text-center text-primary"><small>by Noor E Alam</small></p>
-
 
 @endsection

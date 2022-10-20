@@ -26,7 +26,7 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>No</th>            
+            <th>No</th>
             <th>Images</th>
             <th>Name</th>
             <th>Details</th>
@@ -41,25 +41,22 @@
 	        <td>{{ $product->name }}</td>
 	        <td>{{ $product->detail }}</td>
             <td>{{ $product->price }}</td>
-	        <td>            
+	        <td>
                 <a class="btn btn-info" href="{{ route('products.show',$product->id) }}">Show</a>
                 @can('product-edit')
                 <a class="btn btn-primary" href="{{ route('products.edit',$product->id) }}">Edit</a>
-                @endcan                
-                
+                @endcan
+
                 @can('product-delete')
                     {!! Form::open(['method' => 'DELETE','route' => ['products.destroy', $product->id],'style'=>'display:inline']) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
-                @endcan            
+                @endcan
 	        </td>
 	    </tr>
 	    @endforeach
     </table>
 
     {!! $products->links() !!}
-
-
-    <p class="text-center text-primary"><small>by Noor E Alam</small></p>
 
 @endsection

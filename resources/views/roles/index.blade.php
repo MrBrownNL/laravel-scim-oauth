@@ -9,7 +9,7 @@
 
         <div class="pull-right">
         @can('role-create')
-            <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>            
+            <a class="btn btn-success" href="{{ route('roles.create') }}"> Create New Role</a>
         @endcan
         </div>
     </div>
@@ -53,7 +53,5 @@
 </table>
 
 {!! $roles->render() !!}
-
-<p class="text-center text-primary"><small>by Noor E Alam</small></p>
 
 @endsection

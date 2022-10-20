@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Scim;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Http;
+use Laravel\Passport\ClientRepository;
 
 class ScimController extends Controller
 {
@@ -25,7 +28,8 @@ class ScimController extends Controller
      */
     public function index()
     {
-        //
+        $scimClients = Scim::where('user_id', '=', Auth::id())->get();
+        return view('scim.index',compact('scimClients'));
     }
 
     /**
@@ -35,7 +39,10 @@ class ScimController extends Controller
      */
     public function create()
     {
-        //
+        $client = new  ClientRepository();
+        $client->create(Auth::id(), 'Client credentials', config('app.url'));
+
+        return $this->index();
     }
 
     /**

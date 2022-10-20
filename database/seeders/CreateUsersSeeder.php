@@ -36,7 +36,7 @@ class CreateUsersSeeder extends Seeder
 
         $role = Role::create(['name' => 'SCIM API']);
 
-        $permissions = Permission::where('name', 'like', 'scim-%')->orWhere('name', '=', 'user-list')->pluck('id','id')->all();
+        $permissions = Permission::where('name', 'like', 'scim-%')->pluck('id','id')->all();
 
         $role->syncPermissions($permissions);
 

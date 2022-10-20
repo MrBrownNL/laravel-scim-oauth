@@ -57,7 +57,5 @@
 
 {!! Form::close() !!}
 
-<p class="text-center text-primary"><small>by Noor E Alam</small></p>
-
 @endsection
 
