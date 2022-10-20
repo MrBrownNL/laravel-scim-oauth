@@ -25,7 +25,7 @@
     <![endif]-->
   </head>
 <body>
-    
+
 
 
 
@@ -46,7 +46,7 @@
             <li class="active"><a href="{{ url('/') }}">Home</a></li>
 
           </ul>
-          
+
           <ul class="nav navbar-nav navbar-right">
 
                        <!-- Authentication Links -->
@@ -54,43 +54,54 @@
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
                         @else
-                            <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
-                            <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
-                            <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
+                            @can('user-edit')
+                                <li><a class="nav-link" href="{{ route('users.index') }}">Manage Users</a></li>
+                            @endcan
+                            @can('role-list')
+                                <li><a class="nav-link" href="{{ route('roles.index') }}">Manage Role</a></li>
+                            @endcan
+                            @can('product-list')
+                                <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
+                            @endcan
+                            @can('scim-client')
+                                <li><a class="nav-link" href="{{ route('scim.index') }}">Manage SCIM</a></li>
+                            @endcan
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
-                                  <li><a href="{{ route('users.show', Auth::id()) }}">Profile</a></li>
+                                  @can('user-list')
+                                      <li><a href="{{ route('users.show', Auth::id()) }}">Profile</a></li>
+                                  @endcan
                                   <li>
                                     <a href="{{ route('logout') }}"
                                       onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                    
-                                      {{ __('Logout') }}                                
+
+                                      {{ __('Logout') }}
                                     </a>
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
-                                  </li>                                
-                                </ul>                            
-                              </li>                            
+                                  </li>
+                                </ul>
+                              </li>
                         @endguest
 
           </ul>
-          
+
         </div><!--/.nav-collapse -->
       </div>
     </nav>
 
 
     <div class="container">
-            @yield('content')          
-        
+            @yield('content')
+
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
-    
+
 
 </body>
 </html>

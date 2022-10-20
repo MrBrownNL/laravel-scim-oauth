@@ -28,10 +28,11 @@ class PermissionTableSeeder extends Seeder
            'user-create',
            'user-edit',
            'user-delete',
-        ];     
+           'scim-client',
+        ];
 
         foreach ($permissions as $permission) {
-             Permission::create(['name' => $permission]);
+             Permission::findOrCreate($permission);
         }
 
     }
