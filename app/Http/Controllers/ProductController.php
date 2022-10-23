@@ -1,12 +1,12 @@
-<?php 
-namespace App\Http\Controllers;  
+<?php
+namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-    
+
 
 class ProductController extends Controller
-{ 
+{
     /**
      * Display a listing of the resource.
      *
@@ -31,19 +31,19 @@ class ProductController extends Controller
     {
         $products = Product::latest()->paginate(5);
         return view('products.index',compact('products'))->with('i', (request()->input('page', 1) - 1) * 5);
-    }   
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    
+
     public function create()
     {
         return view('products.create');
     }
-   
+
     /**
      * Store a newly created resource in storage.
      *
@@ -57,23 +57,23 @@ class ProductController extends Controller
             'name' => 'required',
             'detail' => 'required',
             'price'=>'required',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-            
-        ]); 
+            'image' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
 
-        $input = $request->all();  
+        ]);
+
+        $input = $request->all();
 
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
             $productImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
             $image->move($destinationPath, $productImage);
             $input['image'] = "$productImage";
-        } 
+        }
 
-        Product::create($input);        
+        Product::create($input);
 
         return redirect()->route('products.index')->with('success','Product created successfully.');
-    }   
+    }
 
     /**
      * Display the specified resource.
@@ -96,7 +96,7 @@ class ProductController extends Controller
     public function edit(Product $product)
     {
         return view('products.edit',compact('product'));
-    }  
+    }
 
     /**
      * Update the specified resource in storage.
@@ -114,7 +114,7 @@ class ProductController extends Controller
             'price'=>'required',
         ]);
 
-        $input = $request->all();  
+        $input = $request->all();
 
         if ($image = $request->file('image')) {
             $destinationPath = 'image/';
@@ -123,13 +123,13 @@ class ProductController extends Controller
             $input['image'] = "$productImage";
         }else{
             unset($input['image']);
-        }          
+        }
 
         $product->update($input);
-   
+
 
         return redirect()->route('products.index')->with('success','Product updated successfully');
-    }   
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -151,5 +151,5 @@ class ProductController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-  
+
 }

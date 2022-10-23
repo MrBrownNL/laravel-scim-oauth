@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use ArieTimmerman\Laravel\SCIMServer\RouteProvider as SCIMServerRouteProvider;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -36,6 +37,18 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->configureRateLimiting();
+
+        SCIMServerRouteProvider::publicRoutes(); // Make sure to add public routes *first*
+
+        Route::middleware('client')->group(function () { // or any other middleware you choose
+            SCIMServerRouteProvider::routes(
+                [
+                    'public_routes' => false // but do not hide public routes (metadata) behind authentication
+                ]
+            );
+
+            SCIMServerRouteProvider::meRoutes();
+        });
 
         $this->routes(function () {
             Route::prefix('api')

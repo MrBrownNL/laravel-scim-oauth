@@ -39,7 +39,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="{{ url('/') }}">Laravel 8 User Roles & Permissions and Product CRUD With Images Tutorial</a>
+          <a class="navbar-brand" href="{{ url('/') }}">Laravel SCIM server with OAuth and client manager</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
@@ -64,7 +64,7 @@
                                 <li><a class="nav-link" href="{{ route('products.index') }}">Manage Product</a></li>
                             @endcan
                             @can('scim-client')
-                                <li><a class="nav-link" href="{{ route('scim.index') }}">Manage SCIM</a></li>
+                                <li><a class="nav-link" href="{{ route('clients.index') }}">SCIM Clients</a></li>
                             @endcan
                             <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}<span class="caret"></span></a>
