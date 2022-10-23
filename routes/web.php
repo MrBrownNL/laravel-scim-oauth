@@ -36,5 +36,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('products', ProductController::class);
     Route::resource('clients', OauthClientController::class);
     Route::get('revoke/{oauthClientId}/{oauthToken}', [OauthTokenController::class, 'revoke'])->name('revoke');
+    Route::delete('destroytoken/{oauthClientId}/{oauthToken}', [OauthTokenController::class, 'destroy'])->name('destroytoken');
     Route::resource('tokens', OauthTokenController::class);
 });

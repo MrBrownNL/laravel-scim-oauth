@@ -35,7 +35,7 @@
                 <td>{{ $oauthToken->revoked }}</td>
                 <td>{{ $oauthToken->expires_at }}</td>
                 <td>
-                    {!! Form::open(['method' => 'DELETE','route' => ['tokens.destroy', $oauthToken->id],'style'=>'display:inline']) !!}
+                    {!! Form::open(['method' => 'DELETE','route' => ['destroytoken', ['oauthClientId' => $oauthClientId, 'oauthToken' => $oauthToken->id]],'style'=>'display:inline']) !!}
                     {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                     {!! Form::close() !!}
                   @if(!$oauthToken->revoked)

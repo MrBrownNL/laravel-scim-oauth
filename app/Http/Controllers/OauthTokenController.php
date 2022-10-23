@@ -90,7 +90,7 @@ class OauthTokenController extends Controller
     }
 
     /**
-     * Revoke a tokene.
+     * Revoke a token.
      *
      * @param  string  $oauthClientId
      * @param  string  $oauthToken
@@ -98,24 +98,45 @@ class OauthTokenController extends Controller
      */
     public function revoke(string $oauthClientId, string $oauthToken)
     {
-        $token = OauthAccessToken::where('id', $oauthToken)->where('client_id', $oauthClientId)->first();
-        $client = OauthClient::where('user_id', '=', Auth::id())->where('id', $oauthClientId)->first();
-        if ($token === null || $client === null) {
+        if (!$this->userOwnsToken($oauthClientId, $oauthToken)) {
             return redirect()->route('tokens.show', $oauthClientId)->with('error','Invalid token specified');
         }
 
-        $token->update(['revoked' => true]);
+        OauthAccessToken::where('id', $oauthToken)->where('client_id', $oauthClientId)->update(['revoked' => true]);
+
+        //$token->update(['revoked' => true]);
         return redirect()->route('tokens.show', $oauthClientId)->with('success','Token revoked');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  string  $oauthClientId
+     * @param  string  $oauthToken
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(string $oauthClientId, string $oauthToken)
     {
-        //
+        if (!$this->userOwnsToken($oauthClientId, $oauthToken)) {
+            return redirect()->route('tokens.show', $oauthClientId)->with('error','Invalid token specified');
+        }
+
+        OauthAccessToken::where('id', $oauthToken)->where('client_id', $oauthClientId)->delete();
+        return redirect()->route('tokens.show', $oauthClientId)->with('success','Token deleted');
+    }
+
+
+    /**
+     * Check if the current user owns the token.
+     *
+     * @param  string  $oauthClientId
+     * @param  string  $oauthToken
+     * @return bool
+     */
+    private function userOwnsToken(string $oauthClientId, string $oauthToken): bool
+    {
+        $token = OauthAccessToken::where('id', $oauthToken)->where('client_id', $oauthClientId)->first();
+        $client = OauthClient::where('user_id', '=', Auth::id())->where('id', $oauthClientId)->first();
+        return $token !== null && $client !== null;
     }
 }
