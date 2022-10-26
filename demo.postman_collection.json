@@ -1,0 +1,378 @@
+{
+	"info": {
+		"_postman_id": "e0aad8e6-2502-4f83-852a-64539ea4bc35",
+		"name": "Laravel SCIM server with OAuth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10671937"
+	},
+	"item": [
+		{
+			"name": "ServiceProviderConfig (public)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/scim/v2/ServiceProviderConfig",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"ServiceProviderConfig"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Schermas (public)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/scim/v2/Schemas",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Schemas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ResourceTypes (public)",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/scim/v2/ResourceTypes",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"ResourceTypes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products (private)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/scim/v2/Products",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products create (private)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/scim+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Product\"],\r\n    \"name\": \"Headphone\",\r\n    \"detail\": \"Very nice headphone\",\r\n    \"price\": \"89.95\"\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/scim/v2/Products",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users (private)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/scim/v2/Users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Users create (private)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true,
+					"content-type": true
+				}
+			},
+			"request": {
+				"auth": {
+					"type": "oauth2",
+					"oauth2": [
+						{
+							"key": "tokenType",
+							"value": "Bearer",
+							"type": "string"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "string"
+						},
+						{
+							"key": "addTokenTo",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/scim+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\r\n    \"userName\": \"John Doe\",\r\n    \"externalId\": \"00017263\",\r\n    \"emails\": [{\r\n                \"value\": \"John.Doe@example.com\",\r\n                \"type\": \"work\",\r\n                \"primary\": true\r\n               }],\r\n    \"active\": true\r\n}"
+				},
+				"url": {
+					"raw": "{{url}}/scim/v2/Users",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"scim",
+						"v2",
+						"Users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "addTokenTo",
+				"value": "queryParams",
+				"type": "string"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{clientSecret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{clientId}}",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "Azure AD",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{url}}/oauth/token",
+				"type": "string"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "client_credentials",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://app.url",
+			"type": "string"
+		},
+		{
+			"key": "clientId",
+			"value": "yourclientid",
+			"type": "string"
+		},
+		{
+			"key": "clientSecret",
+			"value": "yourclientsecret",
+			"type": "string"
+		}
+	]
+}

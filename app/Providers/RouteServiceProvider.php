@@ -38,12 +38,12 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->configureRateLimiting();
 
-        SCIMServerRouteProvider::publicRoutes(); // Make sure to add public routes *first*
+        // SCIMServerRouteProvider::publicRoutes(); // Make sure to add public routes *first* when they need to be publicly available
 
-        Route::middleware('client')->group(function () { // or any other middleware you choose
+        Route::middleware('client')->group(function () {
             SCIMServerRouteProvider::routes(
                 [
-                    'public_routes' => false // but do not hide public routes (metadata) behind authentication
+                    'public_routes' => true // also show public routes (metadata) behind authentication, set to false if publicRoutes needs to be publicly available
                 ]
             );
 
