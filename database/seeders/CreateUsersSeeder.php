@@ -15,9 +15,13 @@ class CreateUsersSeeder extends Seeder
     public function run()
     {
         $user = User::create([
-            'name' => 'Admin',
+            'externalUserId' => 1,
+            'fullName' => 'Admin user',
+            'firstName' => 'Admin',
+            'lastName' => 'user',
             'email' => 'admin@email.com',
-            'password' => bcrypt('123456')
+            'password' => bcrypt('123456'),
+            'statusId' => User::STATUS_ACTIVE,
         ]);
 
         $role = Role::create(['name' => 'Admin']);
@@ -29,9 +33,13 @@ class CreateUsersSeeder extends Seeder
         $user->assignRole([$role->id]);
 
         $user = User::create([
-             'name' => 'SCIM Manager',
-             'email' => 'scim@email.com',
-             'password' => bcrypt('123456')
+            'externalUserId' => 2,
+            'fullName' => 'SCIM Manager',
+            'firstName' => 'SCIM',
+            'lastName' => 'Manager',
+            'email' => 'scim@email.com',
+            'password' => bcrypt('123456'),
+            'statusId' => User::STATUS_ACTIVE,
         ]);
 
         $role = Role::create(['name' => 'SCIM API']);

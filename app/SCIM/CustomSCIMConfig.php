@@ -41,15 +41,17 @@ class CustomSCIMConfig extends SCIMConfig
 
             'validations' => [
 
-                'urn:ietf:params:scim:schemas:core:2.0:User:externalId' => 'required|unique:users,externalId',
+                'urn:ietf:params:scim:schemas:core:2.0:User:externalId' => 'required|unique:users,externalUserId',
                 'urn:ietf:params:scim:schemas:core:2.0:User:userName' => 'required',
+                'urn:ietf:params:scim:schemas:core:2.0:User:name' => 'required|array',
+                'urn:ietf:params:scim:schemas:core:2.0:User:name.*.givenName' => 'required',
+                'urn:ietf:params:scim:schemas:core:2.0:User:name.*.familyName' => 'required',
                 'urn:ietf:params:scim:schemas:core:2.0:User:password' => 'nullable',
                 'urn:ietf:params:scim:schemas:core:2.0:User:active' => 'boolean',
-                'urn:ietf:params:scim:schemas:core:2.0:User:emails' => 'required|unique:users,email|array',
+                'urn:ietf:params:scim:schemas:core:2.0:User:emails' => 'required|array',
                 'urn:ietf:params:scim:schemas:core:2.0:User:emails.*.value' => 'required|email',
-                'urn:ietf:params:scim:schemas:core:2.0:User:roles' => 'nullable|array',
-                'urn:ietf:params:scim:schemas:core:2.0:User:roles.*.value' => 'required',
-
+//                'urn:ietf:params:scim:schemas:core:2.0:User:roles' => 'nullable|array',
+//                'urn:ietf:params:scim:schemas:core:2.0:User:roles.*.value' => 'required',
             ],
 
             'singular' => 'User',
@@ -57,7 +59,7 @@ class CustomSCIMConfig extends SCIMConfig
 
             //eager loading
             'withRelations' => [],
-            'map_unmapped' => true,
+            'map_unmapped' => false,
             'unmapped_namespace' => 'urn:ietf:params:scim:schemas:laravel:unmapped',
             'description' => 'User Account',
 
@@ -71,7 +73,7 @@ class CustomSCIMConfig extends SCIMConfig
 
                 'id' => AttributeMapping::eloquent("id")->disableWrite(),
 
-                'externalId' => AttributeMapping::eloquent("externalId"),
+                'externalId' => AttributeMapping::eloquent("externalUserId"),
 
                 'meta' => [
                     'created' => AttributeMapping::eloquent("created_at")->disableWrite(),
@@ -92,18 +94,18 @@ class CustomSCIMConfig extends SCIMConfig
                     'resourceType' => AttributeMapping::constant("User")
                 ],
 
-                'userName' => AttributeMapping::eloquent("name"),
+                'userName' => AttributeMapping::eloquent("email"),
 
                 'name' => [
                     'formatted' => null,
-                    'familyName' => null,
-                    'givenName' => AttributeMapping::eloquent("name"),
+                    'familyName' => AttributeMapping::eloquent("lastName"),
+                    'givenName' => AttributeMapping::eloquent("firstName"),
                     'middleName' => null,
                     'honorificPrefix' => null,
                     'honorificSuffix' => null
                 ],
 
-                'active' => AttributeMapping::eloquent("active"),
+                'active' => CustomSCIMAttributeMapping::statusId(),
 
                 // Multi-Valued Attributes
                 'emails' => [[
@@ -116,12 +118,12 @@ class CustomSCIMConfig extends SCIMConfig
 
                 'urn:ietf:params:scim:schemas:core:2.0:User' => [
 
-                    'userName' => AttributeMapping::eloquent("name"),
+                    'userName' => AttributeMapping::eloquent("email"),
 
                     'name' => [
                         'formatted' => null,
-                        'familyName' => null,
-                        'givenName' => AttributeMapping::eloquent("name"),
+                        'familyName' => AttributeMapping::eloquent("lastName"),
+                        'givenName' => AttributeMapping::eloquent("firstName"),
                         'middleName' => null,
                         'honorificPrefix' => null,
                         'honorificSuffix' => null
@@ -135,7 +137,7 @@ class CustomSCIMConfig extends SCIMConfig
                     'preferredLanguage' => null, // Section 5.3.5 of [RFC7231]
                     'locale' => null, // see RFC5646
                     'timezone' => null, // see RFC6557
-                    'active' => AttributeMapping::eloquent("active"),
+                    'active' => CustomSCIMAttributeMapping::statusId(),
 
                     'password' => AttributeMapping::eloquent('password')->disableRead(),
 

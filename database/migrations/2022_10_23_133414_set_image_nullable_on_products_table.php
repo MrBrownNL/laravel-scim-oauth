@@ -26,7 +26,7 @@ class SetImageNullableOnProductsTable extends Migration
     public function down()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string('image')->nullable(false)->change();
+            //$table->string('image')->nullable(false)->change();
         });
     }
 }

@@ -43,11 +43,11 @@ class RouteServiceProvider extends ServiceProvider
         Route::middleware('client')->group(function () {
             SCIMServerRouteProvider::routes(
                 [
-                    'public_routes' => true // also show public routes (metadata) behind authentication, set to false if publicRoutes needs to be publicly available
+                    'public_routes' => false // also show public routes (metadata) behind authentication, set to false if publicRoutes needs to be publicly available or not available at all
                 ]
             );
 
-            SCIMServerRouteProvider::meRoutes();
+            // SCIMServerRouteProvider::meRoutes();
         });
 
         $this->routes(function () {

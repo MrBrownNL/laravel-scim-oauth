@@ -67,7 +67,7 @@
                                 <li><a class="nav-link" href="{{ route('clients.index') }}">SCIM Clients</a></li>
                             @endcan
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }}<span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->fullName }}<span class="caret"></span></a>
                                 <ul class="dropdown-menu">
                                   @can('user-list')
                                       <li><a href="{{ route('users.show', Auth::id()) }}">Profile</a></li>

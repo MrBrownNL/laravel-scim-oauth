@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class SetPasswordNullableOnUsersTable extends Migration
+class SplitNameInUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,9 @@ class SetPasswordNullableOnUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('password')->nullable()->change();
+            $table->renameColumn('name', 'fullName');
+            $table->string('firstName')->after('name');
+            $table->string('lastName')->after('firstName');
         });
     }
 
@@ -26,7 +28,8 @@ class SetPasswordNullableOnUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            //$table->string('password')->nullable(false)->change();
+            $table->renameColumn('fullName', 'name');
+            $table->dropColumn(['firstName', 'lastName']);
         });
     }
 }

@@ -1,6 +1,5 @@
 <?php
 namespace App\Models;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,16 +10,21 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
+    public const STATUS_ACTIVE = 5;
+    public const STATUS_DELETED = 9;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'externalId',
-        'name',
+        'externalUserId',
+        'fullName',
+        'firstName',
+        'lastName',
         'email',
-        'active',
+        'statusId',
         'password',
     ];
 
@@ -40,7 +44,6 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'active' => 'boolean',
         'email_verified_at' => 'datetime',
     ];
 }
