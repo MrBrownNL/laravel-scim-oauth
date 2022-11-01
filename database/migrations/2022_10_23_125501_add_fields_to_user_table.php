@@ -14,8 +14,8 @@ class AddFieldsToUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('externalId')->after('id')->nullable();
-            $table->boolean('active')->after('email')->default(true);
+            $table->string('externalUserId')->after('id')->nullable();
+            $table->tinyInteger('statusId')->after('email')->default(5);
         });
     }
 
@@ -27,7 +27,7 @@ class AddFieldsToUserTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn(['externalId', 'active']);
+            $table->dropColumn(['externalUserId', 'statusId']);
         });
     }
 }
