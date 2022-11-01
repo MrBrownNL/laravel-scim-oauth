@@ -7,73 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "ServiceProviderConfig (public)",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/scim/v2/ServiceProviderConfig",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"scim",
-						"v2",
-						"ServiceProviderConfig"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Schermas (public)",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/scim/v2/Schemas",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"scim",
-						"v2",
-						"Schemas"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "ResourceTypes (public)",
-			"request": {
-				"auth": {
-					"type": "noauth"
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/scim/v2/ResourceTypes",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"scim",
-						"v2",
-						"ResourceTypes"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Products (private)",
+			"name": "Products",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"accept": true
@@ -123,7 +57,7 @@
 			"response": []
 		},
 		{
-			"name": "Products create (private)",
+			"name": "Products create",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"accept": true,
@@ -183,7 +117,7 @@
 			"response": []
 		},
 		{
-			"name": "Users (private)",
+			"name": "Users",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"accept": true
@@ -233,7 +167,7 @@
 			"response": []
 		},
 		{
-			"name": "Users create (private)",
+			"name": "Users create",
 			"protocolProfileBehavior": {
 				"disabledSystemHeaders": {
 					"accept": true,
@@ -276,7 +210,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\r\n    \"userName\": \"John Doe\",\r\n    \"externalId\": \"00017263\",\r\n    \"emails\": [{\r\n                \"value\": \"John.Doe@example.com\",\r\n                \"type\": \"work\",\r\n                \"primary\": true\r\n               }],\r\n    \"active\": true\r\n}"
+					"raw": "{\r\n    \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\r\n    \"userName\": \"John Doe\",\r\n    \"externalId\": \"00017263\",\r\n    \"name\": [{\r\n        \"givenName\": \"John\",\r\n        \"familyName\": \"Doe\"\r\n    }],\r\n    \"emails\": [{\r\n                \"value\": \"John.Doe@example.com\",\r\n                \"type\": \"work\",\r\n                \"primary\": true\r\n               }],\r\n    \"active\": false\r\n}"
 				},
 				"url": {
 					"raw": "{{url}}/scim/v2/Users",
@@ -361,17 +295,17 @@
 	"variable": [
 		{
 			"key": "url",
-			"value": "http://app.url",
+			"value": "",
 			"type": "string"
 		},
 		{
 			"key": "clientId",
-			"value": "yourclientid",
+			"value": "",
 			"type": "string"
 		},
 		{
 			"key": "clientSecret",
-			"value": "yourclientsecret",
+			"value": "",
 			"type": "string"
 		}
 	]
